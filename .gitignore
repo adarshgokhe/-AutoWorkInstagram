@@ -1,0 +1,51 @@
+# Environment and secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+venv/
+.venv/
+env/
+backend/venv/
+
+# Local app data and databases
+*.db
+*.sqlite
+*.sqlite3
+backend/anime_nova_data.json
+anime_nova_data.json
+data/
+
+# Runtime logs
+*.log
+backend/server.out.log
+backend/server.err.log
+
+# User media and generated outputs
+media/input/
+media/output/
+backend/media/input/
+backend/media/output/
+
+# OS and editor files
+.DS_Store
+Thumbs.db
+desktop.ini
+.idea/
+.vscode/
