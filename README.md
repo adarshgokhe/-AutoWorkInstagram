@@ -1,6 +1,6 @@
-# AnimeNova: Instagram Business & Content Manager
+# AutoWorkInstagram: Instagram Business & Content Manager
 
-AnimeNova is a robust, automated Instagram content planner, media compiler, and message manager built using Python (FastAPI) and the official Meta Graph & Instagram Content Publishing APIs. It is designed to automatically generate and schedule paired visual content, publish Reels and Stories, and handle automated, context-aware direct message and comment replies.
+AutoWorkInstagram is a robust, automated Instagram content planner, media compiler, and message manager built using Python (FastAPI) and the official Meta Graph & Instagram Content Publishing APIs. It is designed to automatically generate and schedule paired visual content, publish Reels and Stories, and handle automated, context-aware direct message and comment replies.
 
 ---
 
@@ -42,8 +42,8 @@ AnimeNova is a robust, automated Instagram content planner, media compiler, and 
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/adarshgokhe/AnimeNova.git
-   cd AnimeNova
+   git clone https://github.com/adarshgokhe/AutoWorkInstagram.git
+   cd AutoWorkInstagram
    ```
 
 2. **Set up the virtual environment**:
