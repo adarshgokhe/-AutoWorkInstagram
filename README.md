@@ -1,69 +1,100 @@
-# AnimeNova_FULL_WORKING_SAFE
+# AnimeNova: Instagram Business & Content Manager
 
-This is the upgraded same project package. It runs from the backend only:
+AnimeNova is a robust, automated Instagram content planner, media compiler, and message manager built using Python (FastAPI) and the official Meta Graph & Instagram Content Publishing APIs. It is designed to automatically generate and schedule paired visual content, publish Reels and Stories, and handle automated, context-aware direct message and comment replies.
 
-```powershell
-cd C:\Users\coool\AnimeNova_FULL_WORKING_SAFE\backend
-python -m pip install -r requirements.txt
-python -m uvicorn main:app --host 127.0.0.1 --port 8000 --reload
-```
+---
 
-Open:
+## Key Features
 
-```text
-http://127.0.0.1:8000/app
-```
+### 1. Automated Content Production & Continuous Posting
+* **Dynamic Generation**: Generates motivational quotes, general knowledge facts, Hinglish observations, and short stories using LLM integration (Groq & OpenRouter).
+* **Automated Video Compiler**: Automatically compiles dynamic background visual layers, stylized typography, and sound effects into standard limited-range `yuv420p` (`tv` range) H.264 video containers using FFmpeg.
+* **Continuous Posting Cycle**: Runs a background autopilot loop that automatically generates and posts new Reels and Stories every 20 minutes.
 
-Before first run, create a private `.env` from `.env.example` and set your own login:
+### 2. Identical Reel + Story Pairing
+* **Single-Pass Compilation**: Chooses a category and generates content once, rendering the video only once to save CPU and time.
+* **Paired Drafts**: Automatically schedules and publishes a Reel and a Story sharing the exact same video file, caption text, and hashtags.
 
-```text
-ADMIN_USERNAME=your_admin_username
-ADMIN_PASSWORD=use_a_strong_private_password
-JWT_SECRET=use_a_long_random_private_secret
-```
+### 3. Bulletproof Auto-Recovery Loop
+* **Crash & Timeout Protection**: If the server restarts or times out during the 30-second spacing delay between a Reel and a Story, a background scanner auto-detects the orphaned draft.
+* **Reverse Chronological Recovery**: The bot automatically recovers and publishes outstanding drafts pair-by-pair on startup, ensuring that Reels and Stories are never left unmatched.
 
-## Important token rule
+### 4. Relatable & Deduplicated AI Comments
+* **Deduplication Filter**: Runs a 3-attempt validation check to ensure that generated lines do not match recently posted lines in the database memory history.
+* **Unique AI Comments**: Injects dynamic variation seeds into the AI comment generator to prevent repetitive feedback.
+* **Fallback Diversity**: Rotates between 35 different pre-written comments across 7 categories if the AI service is offline.
 
-Do not paste masked token, app secret, dots, or stars.
-Use Meta Developers > Generate token > Copy button > paste full token:
+### 5. Smart Direct Message & Comment Replies
+* **Context-Aware Simulation**: Auto-replies to comments and DMs in a conversational, anime-fan theme.
+* **Safety & Spam Filtering**: Automatically filters and blocks spam, scam links, abuse, and inappropriate/adult content.
 
-```env
-META_ACCESS_TOKEN=FULL_VALID_TOKEN_HERE
-```
+---
 
-Then restart backend.
+## Tech Stack
+* **Backend**: Python, FastAPI, Uvicorn, SQLite/JSON database.
+* **Media Rendering**: FFmpeg (video compilation), Pillow (image/frame manipulation).
+* **APIs**: Meta Graph API (v20.0+), Instagram Graph API, Groq Cloud, OpenRouter.
+* **Tunneling**: Cloudflare Tunnel (cloudflared) for local edge webhook processing.
 
-## What works in this safe version
+---
 
-- Nova-style ON/OFF dashboard
-- Safe Autopilot settings
-- Daily 3-5 anime post/story/reel drafts
-- Caption + hashtags generator
-- Reel script generator
-- Story/post planner
-- Auto highlight planner
-- Profile/bio rotation planner
-- Natural safe DM/comment/chat reply simulator
-- Personal info protection
-- NSFW/spam/scam/abuse/link blocking
-- Anim.funzon watermark tool for uploaded images
-- Growth assistant suggestions
-- 7-day manual followback tracker
-- Engagement analytics and best posting time recommendation
-- Official Instagram token tester
-- Official Instagram API publish helper with public HTTPS media URL
-- Activity logs
+## Installation & Setup
 
-## Safe limits
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/adarshgokhe/AnimeNova.git
+   cd AnimeNova
+   ```
 
-The app will not do fake likes, mass comments, detection bypass, auto follow/unfollow, scrape copyrighted anime reels, or post adult/18+ content. Those buttons are visible but blocked.
+2. **Set up the virtual environment**:
+   ```bash
+   cd backend
+   python -m venv venv
+   venv\Scripts\activate
+   pip install -r requirements.txt
+   ```
 
-Instagram real publishing needs:
+3. **Configure Environment Variables**:
+   Copy `.env.example` to `.env` and configure your credentials:
+   ```bash
+   copy .env.example .env
+   ```
+   Edit the `.env` file and set:
+   * `ADMIN_USERNAME` and `ADMIN_PASSWORD` (Dashboard Login)
+   * `JWT_SECRET` (Secure token hash)
+   * `META_ACCESS_TOKEN` (Your full, long-lived Meta Access Token)
+   * `INSTAGRAM_USER_ID` (Your Instagram Business Account ID)
+   * `GROQ_API_KEY` or `OPENROUTER_API_KEY` (AI model credentials)
 
-1. Business/Creator Instagram account
-2. Connected Facebook Page
-3. Correct Facebook Graph/Instagram permissions
-4. Valid access token
-5. Public HTTPS image/video URL
+4. **Run the Application**:
+   Start the services using the persistent keep-alive manager:
+   ```powershell
+   cd ..
+   powershell -ExecutionPolicy Bypass -File start_anime_nova.ps1
+   ```
+   Or launch the keep-alive watchdog script directly:
+   ```bash
+   python keep_alive.py
+   ```
 
-Local files cannot be posted directly by Instagram API until they are hosted as a public HTTPS URL.
+5. **Access the Dashboard**:
+   Open your browser and navigate to:
+   ```text
+   http://127.0.0.1:8000/app
+   ```
+
+---
+
+## Webhook Setup
+To process direct messages and comment replies in real-time:
+1. Register your tunnel callback URL in the **Meta App Dashboard**:
+   `https://<your-cloudflare-subdomain>.trycloudflare.com/webhook/instagram`
+2. Set the verify token to:
+   `anime-nova-local-verify`
+3. Subscribe to the `messages` and `comments` webhook fields under the **Instagram** product page.
+4. On your Instagram mobile app, navigate to **Settings > Messages and story replies > Message controls > Connected tools**, and ensure **Allow access to messages** is toggled **ON**.
+
+---
+
+## License
+This project is open-source and licensed under the MIT License.
