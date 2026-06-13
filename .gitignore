@@ -2,6 +2,8 @@
 .env
 .env.*
 !.env.example
+admin-login.local.txt
+backend/admin-login.local.txt
 *.pem
 *.key
 *.crt
@@ -28,7 +30,9 @@ backend/venv/
 *.db
 *.sqlite
 *.sqlite3
+*.bak
 backend/anime_nova_data.json
+backend/anime_nova_data.json.bak
 anime_nova_data.json
 data/
 
@@ -49,3 +53,8 @@ Thumbs.db
 desktop.ini
 .idea/
 .vscode/
+scheduler.lock
+backend/scheduler.lock
+tmp/
+.gemini/
+
